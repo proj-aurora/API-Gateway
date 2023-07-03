@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Post, Put, UseGuards } from '@nestjs/common';
 import { Client, ClientProxy, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 
@@ -21,18 +21,18 @@ export class TeamController {
   @Post('create')
   @UseGuards(AuthGuard)
   async createTeam(@Request() req, @Body() data: object) {
-    const userData = req.user;
+    const userId = req.user.sub;
     return await this.team
-      .send({ check: 'create' }, { ...data, user: userData })
+      .send({ check: 'create' }, { ...data, userId })
       .toPromise();
   }
 
   @Delete('delete')
   @UseGuards(AuthGuard)
   async deleteTeam(@Request() req, @Body() data: object) {
-    const userData = req.user;
+    const userId = req.user.sub;
     return await this.team
-      .send({ check: 'delete' }, { ...data, user: userData })
+      .send({ check: 'delete' }, { ...data, userId })
       .toPromise();
   }
 
