@@ -12,8 +12,8 @@ export class TeamController {
   @Client({
     transport: Transport.TCP,
     options: {
-      host: process.env.TEAM_HOST,
-      port: parseInt(process.env.TEAM_PORT),
+      host: '127.0.0.1',
+      port: 3002,
     },
   })
   team: ClientProxy;
@@ -39,9 +39,9 @@ export class TeamController {
   @Put('join')
   @UseGuards(AuthGuard)
   async joinTeam(@Request() req, @Body() data: object) {
-    const userData = req.user;
+    const userId = req.user.sub;
     return await this.team
-      .send({ check: 'join' }, { ...data, user: userData })
+      .send({ check: 'join' }, { ...data, userId })
       .toPromise();
   }
 }
