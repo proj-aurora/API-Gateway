@@ -18,6 +18,15 @@ export class TeamController {
   })
   team: ClientProxy;
 
+  @Post('info')
+  @UseGuards(AuthGuard)
+  async teamInfo(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.team
+      .send({ check: 'info' }, { ...data, userId })
+      .toPromise();
+  }
+
   @Post('create')
   @UseGuards(AuthGuard)
   async createTeam(@Request() req, @Body() data: object) {
