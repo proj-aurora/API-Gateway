@@ -34,6 +34,13 @@ export class UserController {
     return await this.user.send({ check: 'email' }, userEmail).toPromise();
   }
 
+  @Get('team')
+  @UseGuards(AuthGuard)
+  async userInfoByTeam(@Request() req) {
+    const userId = req.user.sub;
+    return await this.user.send({ check: 'team' }, userId).toPromise();
+  }
+
   @Put('update')
   @UseGuards(AuthGuard)
   async update(@Request() req, @Body() data: object) {
