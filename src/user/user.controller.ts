@@ -41,6 +41,15 @@ export class UserController {
     return await this.user.send({ check: 'team' }, userId).toPromise();
   }
 
+  @Put('newPW')
+  @UseGuards(AuthGuard)
+  async newPW(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.user
+      .send({ check: 'newPW' }, { userId, ...data })
+      .toPromise();
+  }
+
   @Put('update')
   @UseGuards(AuthGuard)
   async update(@Request() req, @Body() data: object) {
