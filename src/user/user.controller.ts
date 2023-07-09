@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { Client, ClientProxy, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import 'dotenv/config';
@@ -13,7 +13,7 @@ export class UserController {
   @Client({
     transport: Transport.TCP,
     options: {
-      host: '127.0.0.1',
+      host: '183.106.245.209',
       port: 3002,
     },
   })

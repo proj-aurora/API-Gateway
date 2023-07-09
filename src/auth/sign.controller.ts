@@ -9,7 +9,7 @@ export class SignController {
   @Client({
     transport: Transport.TCP,
     options: {
-      host: '127.0.0.1',
+      host: '183.106.245.209',
       port: 3002,
     },
   })
