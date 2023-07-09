@@ -53,4 +53,13 @@ export class TeamController {
       .send({ check: 'join' }, { ...data, userId })
       .toPromise();
   }
+
+  @Post('member')
+  @UseGuards(AuthGuard)
+  async teamMember(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.team
+      .send({ check: 'member' }, { ...data, userId })
+      .toPromise();
+  }
 }
