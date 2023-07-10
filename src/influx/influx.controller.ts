@@ -27,7 +27,7 @@ export class InfluxController implements OnModuleInit {
       options: {
         // host: this.configService.get<string>('INFLUX_HOST'),
         // port: this.configService.get<number>('INFLUX_PORT'),
-        host: 'localhost',
+        host: '183.106.245.234',
         port: 3002,
       },
     });
