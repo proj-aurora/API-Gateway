@@ -68,4 +68,13 @@ export class InfluxController implements OnModuleInit {
       .send({ check: 'swap' }, { ...data, userId })
       .toPromise();
   }
+
+  @Post('overview')
+  @UseGuards(AuthGuard)
+  async getOverview(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.influx
+      .send({ check: 'overview' }, { ...data, userId })
+      .toPromise();
+  }
 }
