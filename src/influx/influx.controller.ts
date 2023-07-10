@@ -1,10 +1,11 @@
 import {
-  Body, Controller,
+  Body,
+  Controller,
   Injectable,
   OnModuleInit,
   Post,
-  UseGuards
-} from "@nestjs/common";
+  UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   ClientProxy,
@@ -26,18 +27,45 @@ export class InfluxController implements OnModuleInit {
       options: {
         // host: this.configService.get<string>('INFLUX_HOST'),
         // port: this.configService.get<number>('INFLUX_PORT'),
-        host: '183.106.245.209',
+        host: 'localhost',
         port: 3002,
       },
     });
   }
 
-  @Post('get')
+  @Post('cpu')
   @UseGuards(AuthGuard)
-  async teamInfo(@Request() req, @Body() data: object) {
+  async getCpu(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.influx
-      .send({ check: 'get' }, { ...data, userId })
+      .send({ check: 'cpu' }, { ...data, userId })
+      .toPromise();
+  }
+
+  @Post('disk')
+  @UseGuards(AuthGuard)
+  async getDisk(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.influx
+      .send({ check: 'disk' }, { ...data, userId })
+      .toPromise();
+  }
+
+  @Post('memory')
+  @UseGuards(AuthGuard)
+  async getMemory(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.influx
+      .send({ check: 'memory' }, { ...data, userId })
+      .toPromise();
+  }
+
+  @Post('swap')
+  @UseGuards(AuthGuard)
+  async getSwap(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.influx
+      .send({ check: 'swap' }, { ...data, userId })
       .toPromise();
   }
 }
