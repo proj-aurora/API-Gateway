@@ -2,9 +2,10 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Get,
+  Get, HttpStatus,
   Post,
   Put,
+  Request,
   Res,
   UploadedFile,
   UseGuards,
@@ -123,7 +124,12 @@ export class UserController {
       .send({ check: 'userProfile' }, { userId })
       .toPromise();
 
-    const filePath = path.resolve(__dirname, `../../profile/${fileName}`);
-    return res.sendFile(filePath);
+    const path = `/profile/${fileName}`;
+
+    return res.json({
+      success: true,
+      stateCode: HttpStatus.OK,
+      url: path,
+    });
   }
 }
