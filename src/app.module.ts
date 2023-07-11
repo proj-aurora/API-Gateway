@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.moudle';
 import { TeamModule } from './team/team.module';
 import { InfluxModule } from './influx/influx.module';
+import { AgentModule } from './agent/agent.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { InfluxModule } from './influx/influx.module';
     UserModule,
     TeamModule,
     InfluxModule,
+    AgentModule,
   ],
   controllers: [AppController],
   providers: [],

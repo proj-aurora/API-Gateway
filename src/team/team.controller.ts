@@ -23,7 +23,7 @@ export class TeamController {
   async teamInfo(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.team
-      .send({ check: 'info' }, { ...data, userId })
+      .send({ check: 'teamInfo' }, { ...data, userId })
       .toPromise();
   }
 
@@ -32,7 +32,7 @@ export class TeamController {
   async createTeam(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.team
-      .send({ check: 'create' }, { ...data, userId })
+      .send({ check: 'teamCreate' }, { ...data, userId })
       .toPromise();
   }
 
@@ -41,7 +41,7 @@ export class TeamController {
   async deleteTeam(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.team
-      .send({ check: 'delete' }, { ...data, userId })
+      .send({ check: 'teamDelete' }, { ...data, userId })
       .toPromise();
   }
 
@@ -50,7 +50,7 @@ export class TeamController {
   async joinTeam(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.team
-      .send({ check: 'join' }, { ...data, userId })
+      .send({ check: 'teamJoin' }, { ...data, userId })
       .toPromise();
   }
 
@@ -59,7 +59,16 @@ export class TeamController {
   async teamMember(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.team
-      .send({ check: 'member' }, { ...data, userId })
+      .send({ check: 'teamMemberList' }, { ...data, userId })
+      .toPromise();
+  }
+
+  @Post('update')
+  @UseGuards(AuthGuard)
+  async updateTeam(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.team
+      .send({ check: 'teamInfoUpdate' }, { ...data, userId })
       .toPromise();
   }
 }

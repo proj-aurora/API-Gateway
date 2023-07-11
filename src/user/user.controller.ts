@@ -40,7 +40,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   async userInfoById(@Request() req) {
     const userId = req.user.sub;
-    return await this.user.send({ check: 'id' }, userId).toPromise();
+    return await this.user.send({ check: 'userId' }, userId).toPromise();
   }
 
   // 거의 사용 안할것 같다
@@ -48,14 +48,14 @@ export class UserController {
   @UseGuards(AuthGuard)
   async userInfoByEmail(@Request() req) {
     const userEmail = req.user.email;
-    return await this.user.send({ check: 'email' }, userEmail).toPromise();
+    return await this.user.send({ check: 'userEmail' }, userEmail).toPromise();
   }
 
   @Get('team')
   @UseGuards(AuthGuard)
   async userInfoByTeam(@Request() req) {
     const userId = req.user.sub;
-    return await this.user.send({ check: 'team' }, userId).toPromise();
+    return await this.user.send({ check: 'userTeamList' }, userId).toPromise();
   }
 
   @Put('newPW')
@@ -63,7 +63,7 @@ export class UserController {
   async newPW(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.user
-      .send({ check: 'newPW' }, { userId, ...data })
+      .send({ check: 'userNewPw' }, { userId, ...data })
       .toPromise();
   }
 
@@ -72,7 +72,7 @@ export class UserController {
   async update(@Request() req, @Body() data: object) {
     const userId = req.user.sub;
     return await this.user
-      .send({ check: 'update' }, { userId, ...data })
+      .send({ check: 'userUpdate' }, { userId, ...data })
       .toPromise();
   }
 
@@ -110,7 +110,7 @@ export class UserController {
     const userId = req.user.sub;
     const fileName = file.filename;
     return await this.user
-      .send({ check: 'upload' }, { userId, fileName })
+      .send({ check: 'userProfileUpload' }, { userId, fileName })
       .toPromise();
   }
 
@@ -120,7 +120,7 @@ export class UserController {
     // const imagePath = path.resolve(__dirname, data.path);
     const userId = req.user.sub;
     const fileName = await this.user
-      .send({ check: 'image' }, { userId })
+      .send({ check: 'userProfile' }, { userId })
       .toPromise();
 
     const filePath = path.resolve(__dirname, `../../profile/${fileName}`);
