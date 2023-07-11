@@ -2,7 +2,8 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Get, HttpStatus,
+  Get,
+  HttpStatus,
   Post,
   Put,
   Request,
@@ -17,7 +18,6 @@ import { ConfigService } from '@nestjs/config';
 import 'dotenv/config';
 
 import { AuthGuard } from '../utils/auth.guard';
-import { Request } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
 import { diskStorage } from 'multer';
