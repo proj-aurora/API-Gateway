@@ -94,10 +94,13 @@ export class UserController {
           if (
             extension !== '.png' &&
             extension !== '.jpg' &&
-            extension !== '.jpeg'
+            extension !== '.jpeg' &&
+            extension !== '.webp'
           ) {
             cb(
-              new BadRequestException('Only png, jpg, jpeg files are allowed!'),
+              new BadRequestException(
+                'Only png, jpg, jpeg, webp files are allowed!',
+              ),
               null,
             );
           } else {
