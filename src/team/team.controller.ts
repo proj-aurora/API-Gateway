@@ -98,4 +98,13 @@ export class TeamController {
       .send({ check: 'inviteUser' }, { ...data, userId })
       .toPromise();
   }
+
+  @Post('owner')
+  @UseGuards(AuthGuard)
+  async ownerTeam(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.team
+      .send({ check: 'changeOwner' }, { ...data, userId })
+      .toPromise();
+  }
 }
