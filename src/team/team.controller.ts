@@ -80,4 +80,13 @@ export class TeamController {
       .send({ check: 'teamInfoUpdate' }, { ...data, userId })
       .toPromise();
   }
+
+  @Post('invite')
+  @UseGuards(AuthGuard)
+  async inviteUser(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.team
+      .send({ check: 'inviteUser' }, { ...data, userId })
+      .toPromise();
+  }
 }
