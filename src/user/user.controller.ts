@@ -123,16 +123,14 @@ export class UserController {
   async getImage(@Request() req, @Res() res: Response) {
     // const imagePath = path.resolve(__dirname, data.path);
     const userId = req.user.sub;
-    const fileName = await this.user
+    const filePath = await this.user
       .send({ check: 'userProfile' }, { userId })
       .toPromise();
-
-    const path = `/profile/${fileName}`;
 
     return res.json({
       success: true,
       stateCode: HttpStatus.OK,
-      url: path,
+      url: filePath,
     });
   }
 }
