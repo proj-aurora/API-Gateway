@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Post, Put, Request, UseGuards } from "@nestjs/common";
 import { Client, ClientProxy, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '../utils/auth.guard';
@@ -36,6 +36,15 @@ export class AgentController {
     const userId = req.user.sub;
     return await this.agent
       .send({ check: 'agentCreate' }, { ...data, userId })
+      .toPromise();
+  }
+
+  @Put('agent/update')
+  @UseGuards(AuthGuard)
+  async agentUpdate(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.agent
+      .send({ check: 'agentUpdate' }, { ...data, userId })
       .toPromise();
   }
 }
