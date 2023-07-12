@@ -63,6 +63,15 @@ export class TeamController {
       .toPromise();
   }
 
+  @Post('expulsion')
+  @UseGuards(AuthGuard)
+  async expulsionTeam(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.team
+      .send({ check: 'memberExpulsion' }, { ...data, userId })
+      .toPromise();
+  }
+
   @Post('member')
   @UseGuards(AuthGuard)
   async teamMember(@Request() req, @Body() data: object) {
