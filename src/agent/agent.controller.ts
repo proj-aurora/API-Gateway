@@ -47,4 +47,13 @@ export class AgentController {
       .send({ check: 'agentUpdate' }, { ...data, userId })
       .toPromise();
   }
+
+  @Delete('agent/delete')
+  @UseGuards(AuthGuard)
+  async agentDelete(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.agent
+      .send({ check: 'agentDelete' }, { ...data, userId })
+      .toPromise();
+  }
 }
