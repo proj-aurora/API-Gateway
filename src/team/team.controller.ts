@@ -54,6 +54,15 @@ export class TeamController {
       .toPromise();
   }
 
+  @Post('leave')
+  @UseGuards(AuthGuard)
+  async leaveTeam(@Request() req, @Body() data: object) {
+    const userId = req.user.sub;
+    return await this.team
+      .send({ check: 'teamLeave' }, { ...data, userId })
+      .toPromise();
+  }
+
   @Post('member')
   @UseGuards(AuthGuard)
   async teamMember(@Request() req, @Body() data: object) {
